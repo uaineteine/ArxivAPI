@@ -129,7 +129,7 @@ lda_model = gensim_lda.buildLDA(tokenised_docs, numTopics=1, passes=4)
 topics = lda_model.print_topics(num_words=numWords)
 topic_word_counts = {}
     for idx, topic in enumerate(topics):
-        word_counts = topic[1].split("+")
+        word_counts = topic.split("+")
         total_count = 0
 
         for word_count in word_counts:
