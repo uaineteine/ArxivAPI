@@ -4,7 +4,11 @@
 
 # Purpose
 
-The purpose of this script is to automate the process of identifying and flagging potentially unsafe content in text reports. It achieves this by training a machine learning model on a set of labeled data, where each text report is marked as either “Safe” or “Unsafe”. Once trained, the model can then classify new, unseen reports. This functionality is particularly useful in content moderation, helping to ensure that only appropriate content is displayed. Additionally, the script can perform content identification on reports flagged as “Unsafe”, providing a summary of the content for further analysis. This could be applied to other methods of unsafe word analysis, enhancing the ability to detect and manage inappropriate content. Please note that due to the nature of the content it handles, the script will likely expose NSFW language with the samples I've made.
+The purpose of this script is to automate the process of identifying and flagging potentially unsafe content in text reports. It achieves this by training a machine learning model on a set of labeled data, where each text report is marked as either “Safe” or “Unsafe”. Once trained, the model can then classify new, unseen reports.
+
+This functionality is particularly useful in content moderation, helping to ensure that only appropriate content is displayed. Additionally, the script can perform content identification on reports flagged as “Unsafe”, providing a summary of the content for further analysis. This could be applied to other methods of unsafe word analysis, enhancing the ability to detect and manage inappropriate content.
+
+Please note that due to the nature of the content it handles, the script will likely expose NSFW language with the samples I've made.
 
 # Requirements
 
