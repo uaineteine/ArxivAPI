@@ -25,7 +25,7 @@ The purpose of this script is to automate the process of identifying and flaggin
   - Import MultinomialNB from sklearn.naive\_bayes.
   - Gensim and STOPWORDS for limitation on words to analyse
 2. **Perform report reading**
-  - Define a function to read\_all reports line by line, strip any leading/trailing whitespace from each line (line.strip()), and append the lines to the reports list.
+  - Define a function to read\_all reports line by line, strip any leading/trailing whitespace, and append the lines to the reports list.
 
 ```python
 def read_reports(dirname, fileext):
@@ -70,10 +70,9 @@ clf, vectoriser = trainClassifier(labeled_data)
 ```
 
 4. **Perform the predictions**
-  - Vectorise the new text reports using the same vectoriser and predict the topics for the new text reports using the trained classifier.
+  - Vectorise the new text reports and predict the topics for the new text reports using the trained classifier.
   - Call the read\_all function to read all text files in the "test reports" directory that end with "test.txt". 
-  - Define a function predictOnReports that takes the trained classifier, the vectoriser, and new text reports as input
-  - Call the predictOnReports function from the MultinomialNB module to make predictions on the test\_reports using the trained classifier and the vectoriser. Store the predictions in predictions.
+  - Define a function predictOnReports that takes the trained classifier, the vectoriser, and new text reports as input.
 
 ```python
 test_reports = read_reports.read_all("test reports", "test.txt")
