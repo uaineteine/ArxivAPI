@@ -76,7 +76,7 @@ clf, vectoriser = trainClassifier(labeled_data)
 4. **Perform the predictions**
   - Vectorise the new text reports and predict the topics for the new text reports using the trained classifier.
   - Call the read\_all function to read all text files in the "test reports" directory that end with "test.txt". 
-  - Define a function predictOnReports that takes the trained classifier, the vectoriser, and new text reports as input.
+  - Apply the trained classifier, the vectoriser, and new test reports as input to predict the test topics.
 
 ```python
 test_reports = read_reports.read_all("test reports", "test.txt")
