@@ -97,7 +97,7 @@ predictions = predictOnReports(clf, vectoriser, test_reports)
 
 
 For each report and its corresponding prediction in predictions, if the prediction is "Unsafe":
-* Tokenise the report using the tokenisedocs function from the gensim\_lda module
+* Tokenise the report documents by splitting the text a part, removing basic words STOPWORDS like 'a', 'and'...
       
 ```python
 extra_STOPWORDS = ["isn't", "i'll", ...]
@@ -106,7 +106,7 @@ tokenised_docs = [[token for token in doc if token not in STOPWORDS] for doc in 
 tokenised_docs = [[token for token in doc if token not in extra_STOPWORDS] for doc in tokenised_docs]
 ```
 
-* Build the LDA model using the gensim\_lda module on tokend\_docs, specifying the number of topics and the number of passes
+* Build the LDA model on tokend\_docs, specifying the number of topics and the number of passes
 
 ```python
 def buildLDA(tokens_docs, numTopics, passes):
@@ -146,13 +146,13 @@ topic_word_counts = {}
 
 * Further topics of trianing, instead of just “Safe” and “Unsafe”. For example, you can have categories like “Violence”, “Harassment”, “Profanity”, etc. This would require a labeled dataset for each of these new categories.
 
-* Zero-shot learning can be used to deal with new topic types that the model has not been trained on. 
+* Zero-shot learning can deal with new topic types that the model has not been trained on. 
 
 # Live test
 
 The script ```topic_identification.py``` is an executable for this process. This Python file, when executed, initiates a live test of topic identification. The term “live test” implies that the script is run in an environment that closely simulates its intended operational conditions, providing a realistic assessment of its performance. However, this is very basic and more of a proof of concept.
 
-The script operates on sample data located in the “test reports” folder. During the execution, if the script encounters content that it deems unsafe, it triggers a deeper analysis of the content. This analysis is performed using Latent Dirichlet Allocation (LDA), a popular machine learning technique for topic modeling. LDA helps in identifying the underlying latent structure of the content, and presents the key words that characterise the identified topics.
+The script operates on sample data located in the “test reports” folder. During the execution, if the script encounters content that it deems unsafe, it triggers a deeper analysis of the content. This analysis is performed using Latent Dirichlet Allocation (LDA), an unsupervised model for topic analysis. LDA helps in identifying the underlying latent structure of the content, and presents the key words that characterise the identified topics.
 
 A word of caution! This process may result in the exposure of NSFW language. However, given the context and the nature of the content that the script is expected to handle, encountering such language is anticipated.
 
