@@ -25,7 +25,7 @@ The purpose of this script is to automate the process of identifying and flaggin
   - Import MultinomialNB from sklearn.naive\_bayes.
   - Gensim and STOPWORDS for limitation on words to analyse
 2. **Perform report reading**
-  - Define a function read\_all(dirname, endswith) that reads all reports line by line, strip any leading/trailing whitespace from each line (line.strip()), and append the lines to the reports list.
+  - Define a function to read\_all reports line by line, strip any leading/trailing whitespace from each line (line.strip()), and append the lines to the reports list.
 
 ```python
 def read_reports(dirname, fileext):
@@ -39,10 +39,10 @@ def read_reports(dirname, fileext):
 ```
 
 3. **Classifier Training**
-  - Define a function trainClassifier(labeled\_data) that takes labeled data as input.
+  - Define a function trainClassifier that takes labeled data as input.
   - Separate the labels and the text from the labeled data.
   - Vectorise the text data using CountVectorizer. This converts the text data into a matrix of token counts.
-  - Train the Multinomial Naive Bayes classifier on the text data and the corresponding labels using MultinomialNB.
+  - Train the Multinomial Naive Bayes classifier on the text data and the corresponding labels.
 
 ```python
 def trainClassifier(labeled_data):
@@ -55,7 +55,6 @@ def trainClassifier(labeled_data):
 ```
 
   - Create a list labeled\_data of tuples, where each tuple contains a label ("Unsafe" or "Safe") and a corresponding report from reports\_join.
-  - Call the trainClassifier function fto train the classifier on the labeled\_data. Store the trained classifier and the vectorizer in clf and vectoriser, respectively.
 
 ```python
 reports = read_reports("test reports", "report.txt")
