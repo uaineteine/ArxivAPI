@@ -71,7 +71,7 @@ clf, vectoriser = trainClassifier(labeled_data)
 
 4. **Perform the predictions**
   - Vectorise the new text reports using the same vectoriser and predict the topics for the new text reports using the trained classifier.
-  - Call the read\_all function from the read\_reports module to read all text files in the "test reports" directory that end with "test.txt". 
+  - Call the read\_all function to read all text files in the "test reports" directory that end with "test.txt". 
   - Define a function predictOnReports that takes the trained classifier, the vectoriser, and new text reports as input
   - Call the predictOnReports function from the MultinomialNB module to make predictions on the test\_reports using the trained classifier and the vectoriser. Store the predictions in predictions.
 
@@ -120,7 +120,7 @@ def buildLDA(tokens_docs, numTopics, passes):
 lda_model = gensim_lda.buildLDA(tokenised_docs, numTopics=1, passes=4)
 ```
 
-* Present the results of the LDA model using the from the gensim\_lda module, specifying the number of words
+* Present the results of the LDA model specifying a limit to the number of words
 
 ```python
 topics = lda_model.print_topics(num_words=numWords)
