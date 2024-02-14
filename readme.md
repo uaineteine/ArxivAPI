@@ -138,6 +138,8 @@ topic_word_counts = {}
 
         topic_word_counts[idx] = total_count
 ```
+
+* Final representation and/or use of 'untrained' content topics from LDA is up to the user.
       
 
 # Further extensions to process and predictions
