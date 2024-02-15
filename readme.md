@@ -152,7 +152,7 @@ topic_word_counts = {}
 
 # Live test
 
-The script ```topic_identification.py``` is an executable for this process. This Python file, when executed, initiates a live test of topic identification. The term “live test” implies that the script is run in an environment that closely simulates its intended operational conditions, providing a realistic assessment of its performance. However, this is very basic and more of a proof of concept.
+The script ```topic_identification.py``` is an executable for this process. This Python file, when executed, initiates a live test of topic identification. This is very basic and serves as a proof of the concept.
 
 The script operates on sample data located in the “test reports” folder. During the execution, if the script encounters content that it deems unsafe, it triggers a deeper analysis of the content. This analysis is performed using Latent Dirichlet Allocation (LDA), an unsupervised model for topic analysis. LDA helps in identifying the underlying latent structure of the content, and presents the key words that characterise the identified topics.
 
