@@ -4,7 +4,7 @@ import io
 
 # Read example text files from the directory
 # Example text reports (replace with your own data)
-def read_all(dirname, endswith):
+def read_all_from_dir(dirname, endswith):
     reports = []
     for filename in os.listdir(dirname):
         if filename.endswith(endswith):

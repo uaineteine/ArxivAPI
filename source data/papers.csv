@@ -1,0 +1,9 @@
+URL,trainFlag,label
+https://arxiv.org/abs/2207.07456,y,interest
+https://arxiv.org/abs/2402.08038,y,nointerest
+https://arxiv.org/abs/2402.07885,y,nointerest
+https://arxiv.org/abs/2402.07861,y,interest
+https://arxiv.org/abs/1910.06794,y,interest
+https://arxiv.org/abs/1704.00202,y,interest
+https://arxiv.org/abs/1703.07790,y,interest
+https://arxiv.org/abs/1604.03979,n,interest
