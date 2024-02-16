@@ -1,17 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Specify the URL you want to extract text from
-target_url = "https://arxiv.org/abs/2207.07456"
+import requests
+from bs4 import BeautifulSoup
 
-# Fetch the HTML content from the URL
-response = requests.get(target_url)
-soup = BeautifulSoup(response.content, "html.parser")
+def extract_paper_info(url):
+    # Fetch the HTML content from the URL
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
 
-# Extract the title
-title = soup.find("h1", class_="title mathjax")
-print("Title:", title.text.split(":", 1)[1].strip())
+    # Extract the title
+    title = soup.find("h1", class_="title mathjax")
+    title_text = "Title: " + title.text.split(":", 1)[1].strip()
 
-# Extract the abstract
-abstract = soup.find("blockquote", class_="abstract mathjax")
-print("Abstract:", abstract.text.split(":", 1)[1].strip())
+    # Extract the abstract
+    abstract = soup.find("blockquote", class_="abstract mathjax")
+    abstract_text = "Abstract: " + abstract.text.split(":", 1)[1].strip()
+
+    # Return the concatenated title and abstract
+    return title_text + "\n" + abstract_text
+
+# Test the function with a sample URL
+print(extract_paper_info("https://arxiv.org/abs/2207.07456"))
