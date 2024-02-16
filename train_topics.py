@@ -9,7 +9,6 @@ reports['paper_info'] = reports['URL'].apply(extract_arxiv.extract_paper_info)
 
 # filtering for training data on basis of both filters
 training_reports = reports[reports['trainFlag'] == "y"]
-print(training_reports)
 
 # Make labels
 # Assuming you have already filtered the DataFrame as 'training_reports'
@@ -21,3 +20,5 @@ print("training")
 clf, vectoriser = MultinomialNB.trainClassifier(labeled_data)
 
 #make the predictions
+test_reports = reports[reports['trainFlag'] == "n"]
+test_predictions = MultinomialNB.predictOnReports(clf, vectoriser, training_reports['test_reports'])
