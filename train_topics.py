@@ -4,6 +4,7 @@ import extract_arxiv
 import model_funcs.MultinomialNB as MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from joblib import dump, load
 
 #perform NB with training
 print("[train_topics] using MultinominalNB for training labelled topics")
@@ -27,3 +28,9 @@ test_predictions = MultinomialNB.predictOnReports(clf, vectoriser, test_reports[
 # Calculate the accuracy
 accuracy = accuracy_score(test_reports['label'], test_predictions)
 print(f"Training Accuracy: {accuracy * 100:.2f}%")
+
+# Save the model
+dump(clf, "trained_models/processing/filename.joblib") 
+
+# Load the model
+#clf = load('filename.joblib') 
