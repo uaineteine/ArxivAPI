@@ -5,7 +5,7 @@ print("[train_topics] using MultinominalNB for training labelled topics")
 import pandas as pd
 import extract_arxiv
 reports = pd.read_csv("source data/papers.csv", dtype=str)
-reports['paper_info'] = reports['url'].apply(extract_arxiv.extract_paper_info)
+reports['paper_info'] = reports['URL'].apply(extract_arxiv.extract_paper_info)
 
 # filtering for training data on basis of both filters
 training_reports = reports[reports['trainFlag'] == "y"]
