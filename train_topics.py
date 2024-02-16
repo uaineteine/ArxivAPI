@@ -21,4 +21,4 @@ clf, vectoriser = MultinomialNB.trainClassifier(labeled_data)
 
 #make the predictions
 test_reports = reports[reports['trainFlag'] == "n"]
-test_predictions = MultinomialNB.predictOnReports(clf, vectoriser, training_reports['test_reports'])
+test_predictions = MultinomialNB.predictOnReports(clf, vectoriser, training_reports['paper_info'])
