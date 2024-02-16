@@ -1,9 +1,12 @@
+print("[train_topics] importing libraries")
+import pandas as pd
+import extract_arxiv
+import model_funcs.MultinomialNB as MultinomialNB
+
 #perform NB with training
 print("[train_topics] using MultinominalNB for training labelled topics")
 
 #grab documents for training
-import pandas as pd
-import extract_arxiv
 reports = pd.read_csv("source data/papers.csv", dtype=str)
 reports['paper_info'] = reports['URL'].apply(extract_arxiv.extract_paper_info)
 
@@ -15,9 +18,9 @@ training_reports = reports[reports['trainFlag'] == "y"]
 # You can create the labeled_data list like this:
 labeled_data = list(zip(training_reports['label'], training_reports['paper_info']))
 
-import MultinomialNB
-print("training")
+print("[train_topics] training...")
 clf, vectoriser = MultinomialNB.trainClassifier(labeled_data)
+print("[train_topics] training completed")
 
 #make the predictions
 test_reports = reports[reports['trainFlag'] == "n"]

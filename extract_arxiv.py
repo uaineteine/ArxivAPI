@@ -1,6 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
-
+print("[extract_arxiv] importing libraries")
 import requests
 from bs4 import BeautifulSoup
 
@@ -19,6 +17,3 @@ def extract_paper_info(url):
 
     # Return the concatenated title and abstract
     return title_text + "\n" + abstract_text
-
-# Test the function with a sample URL
-print(extract_paper_info("https://arxiv.org/abs/2207.07456"))
