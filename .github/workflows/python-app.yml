@@ -1,6 +1,11 @@
 name: Python application test with GitHub Actions
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - release
+      - test
 
 jobs:
   executionTests:
