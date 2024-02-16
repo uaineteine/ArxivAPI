@@ -1,0 +1,19 @@
+name: Branch Synchroniser
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Merge master to dev-main
+        run: |
+          git checkout dev-main
+          git merge master --no-edit
+          git push origin dev-main
