@@ -8,7 +8,10 @@ target_url = "https://arxiv.org/abs/2207.07456"
 response = requests.get(target_url)
 soup = BeautifulSoup(response.content, "html.parser")
 
-# Extract all visible text (excluding script, meta, link, and style tags)
-for text in soup.body.find_all(string=True):
-    if text.parent.name not in ["script", "meta", "link", "style"] and text.strip():
-        print(text.strip())
+# Extract the title
+title = soup.find("h1", class_="title mathjax")
+print("Title:", title.text.split(":", 1)[1].strip())
+
+# Extract the abstract
+abstract = soup.find("blockquote", class_="abstract mathjax")
+print("Abstract:", abstract.text.split(":", 1)[1].strip())
