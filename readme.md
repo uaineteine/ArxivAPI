@@ -1,3 +1,7 @@
+# STATUS
+
+[![Python application test with GitHub Actions](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/python-app.yml/badge.svg)](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/python-app.yml) 
+
 # ! There is actually a working script in this, you can find the detail at the bottom of the readme
 
 ## ! A word of caution: that process will likely result in the exposure of not safe for work language. However, given the context and the nature of the content that the script is expected to handle, encountering such language is anticipated. 
