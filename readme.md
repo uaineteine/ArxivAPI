@@ -1,6 +1,6 @@
 # STATUS
 
-[![Execution Tests](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/python-app.yml/badge.svg)](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/python-app.yml) 
+[![Execution Tests](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/execution-tests.yml)
 
 # ! There is actually a working script in this, you can find the detail at the bottom of the readme
 
