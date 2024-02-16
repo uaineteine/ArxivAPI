@@ -9,6 +9,9 @@ git pull origin master
 REM Checkout the dev-main branch
 git checkout dev-main
 
+REM Pull any other changes for the dev-main branch
+git pull origin dev-main
+
 REM Merge master into dev-main
 git merge master
 
