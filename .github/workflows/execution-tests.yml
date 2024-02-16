@@ -23,5 +23,5 @@ jobs:
         pip install -r .github/workflows/pypack_requirements.txt
     - name: Test arxiv webscraper
       run: python test_webscrape.py
-    - name: Test training
-      run: python train_topics.py
+    - name: Test training of orbiter
+      run: python test_train_orbiter.py
