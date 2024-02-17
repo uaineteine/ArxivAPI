@@ -1,7 +1,7 @@
 print("run_training] import libraries")
 import os
 import glob
-import train_orbiter
+import train_orbiter as train_orbiter
 
 def list_csv_files(directory):
     return glob.glob(os.path.join(directory, '*.csv'))

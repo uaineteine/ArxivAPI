@@ -1,7 +1,7 @@
 print("[train_orbiter] importing libraries")
 import pandas as pd
 import extract_arxiv
-import model_funcs.MultinomialNB as MultinomialNB
+import basem.MultinomialNB as MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
