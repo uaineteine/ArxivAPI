@@ -28,4 +28,4 @@ def train(source_data_filename, testPerc=.2):
     print(f"Training Accuracy: {accuracy * 100:.2f}%")
 
     #return
-    return(clf, vectoriser)
+    return(clf, vectoriser, len(labeled_data))
