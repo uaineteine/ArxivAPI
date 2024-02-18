@@ -2,6 +2,8 @@
 
 [![Execution Tests](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/execution-tests.yml)
 
+[Arxiv Status][https://status.arxiv.org/]
+
 # Purpose
 
 The purpose of this script is to automate the process of identifying and flagging potentially interesting research papers on arxiv. The model will train topic identification based on a CSV of URLs to papers.
