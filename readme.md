@@ -1,6 +1,6 @@
 # STATUS
 
-[![Execution Tests](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/OrbitOracle_Exoplanet/actions/workflows/execution-tests.yml)
+[![Execution tests](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml)
 
 [Arxiv Status](https://status.arxiv.org/)
 
