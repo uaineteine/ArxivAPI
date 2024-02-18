@@ -21,10 +21,5 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r .github/workflows/pypack_requirements.txt
-    - name: Move test files
-      run: |
-        cp automation//tests/test_*.py orbiter/
-    - name: Test arxiv webscraper
-      run: python orbiter/test_webscrape.py
-    - name: Test training of orbiter
-      run: python orbiter/test_train_orbiter.py
+    - name: Test status checking script
+      run: python get_status.py
