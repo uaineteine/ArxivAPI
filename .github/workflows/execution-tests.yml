@@ -23,7 +23,7 @@ jobs:
         pip install -r .github/workflows/pypack_requirements.txt
     - name: Move test files
       run: |
-        cp automatedtests/test_*.py orbiter/
+        cp automation//tests/test_*.py orbiter/
     - name: Test arxiv webscraper
       run: python orbiter/test_webscrape.py
     - name: Test training of orbiter
