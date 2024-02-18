@@ -27,7 +27,13 @@ def scrape_info(url):
     list_items = soup.find('ul', {'class': 'list-components'}).find_all('li', {'class': 'list-component has-nested-components'})
     
     for item in list_items:
-        print(item)
+        # Extract the component name
+        component_name = item.find('strong', {'class': 'list-component-name'}).text
+
+        # Extract the operational status
+        operational_status = item.find('span', {'class': 'hidden-xs'}).text
+
+        print(f"[print_status] {component_name}, Operational Status: {operational_status}")
 
 # Call the function with your URL
 scrape_info('https://status.arxiv.org/')
