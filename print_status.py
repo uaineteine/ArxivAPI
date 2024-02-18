@@ -1,4 +1,4 @@
-print("[get_status] importing libraries")
+print("[print_status] importing libraries")
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -18,16 +18,16 @@ def scrape_info(url):
     match = re.search(r'All systems are go', status_message)
 
     if match:
-        print("[get_status] Main Status: All systems are go")
+        print("[print_status] Main Status: All systems are go")
     else:
-        print("[get_status] Main Status: Not found")
+        print("[print_status] Main Status: Not found")
 
     # Find every child from ul with class 'list-components' 
     # that is an li tag with class 'list-component has-nested-components'
     list_items = soup.find('ul', {'class': 'list-components'}).find_all('li', {'class': 'list-component has-nested-components'})
     
-    #for item in list_items:
-        #print(item)
+    for item in list_items:
+        print(item)
 
 # Call the function with your URL
 scrape_info('https://status.arxiv.org/')

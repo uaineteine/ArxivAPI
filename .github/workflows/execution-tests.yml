@@ -22,4 +22,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r .github/workflows/pypack_requirements.txt
     - name: Test status checking script
-      run: python get_status.py
+      run: python print_status.py
