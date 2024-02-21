@@ -23,3 +23,5 @@ jobs:
         pip install -r .github/workflows/pypack_requirements.txt
     - name: Test status checking script
       run: python print_status.py
+    - name: Test extraction using beautiful soup
+      run: python test_extract.py
