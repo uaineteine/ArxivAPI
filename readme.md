@@ -4,22 +4,21 @@
 
 [Arxiv Status](https://status.arxiv.org/)
 
+# ArxivAPI
+
+This is a Python script that uses the ArXiv API to scrape information about research papers.
+
 # Purpose
 
-The purpose of this script is to automate the process of identifying and flagging potentially interesting research papers on arxiv. The model will train topic identification based on a CSV of URLs to papers.
+This is a Python script that primarily uses the ArXiv API to scrape information about research papers. As a standard, the script sends a request to the ArXiv API with specific search parameters. The API returns a list of papers that match these parameters. The script then parses this data and extracts the relevant information about each paper, such as the title, authors, abstract, and ArXiv identifier.
 
-
-# How it works    
-
-...
+In addition to the ArXiv API, the script also incorporates BeautifulSoup for direct HTTP scraping as a backup. This means that if the ArXiv API is unavailable or fails to return the desired information, the script can fall back on BeautifulSoup to scrape the data directly from the ArXiv website. This ensures that the script remains functional and reliable even under less than ideal circumstances.
 
 # Requirements
 
 1. **Python**
-2. **sklearn**
-* This script uses the following methods from scikit-learn:
-  - CountVectorizer from sklearn.feature_extraction.text: This is used to convert the text data into a matrix of token counts, which is a necessary step before training the classifier.
-  - MultinomialNB from sklearn.naive_bayes: This is a Naive Bayes classifier model suitable for classification of text features. It is used to train the classifier on the vectorised text data and the corresponding labels.
-3. **pickle**
+2. **requests**: This library is used to send HTTP requests to the ArXiv API.
+3. **BeautifulSoup**: This library is used to parse the XML response from the ArXiv API.
+4. **pandas**: This library is used to store and manipulate the scraped data.
 
 #### Daniel Stamer-Squair
