@@ -1,5 +1,7 @@
-https://export.arxiv.org/api/query?search_query=all:the&id_list=1802.06593,0704.0003&start=0&max_results=100
+# example URL
+# https://export.arxiv.org/api/query?search_query=all:the&id_list=1802.06593,0704.0003&start=0&max_results=100
 
+print("[ArxivAPI::query] importing libraries")
 import urllib.request as libreq
 
 pgSize = 100
