@@ -8,3 +8,4 @@ def page_query_url(base_url, startIndex):
 def build_base_query_url(idlist):
   comma_ids = ', '.join(idlist) #make into a comma separated list
   return f"https://export.arxiv.org/api/query?&id_list={comma_ids}"
+
