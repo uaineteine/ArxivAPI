@@ -20,18 +20,45 @@ def xml_query(url_in):
   return r.text
 
 import xml.etree.ElementTree as ET
+from io import StringIO
 
-def parse_xml(xml_text):
+def parse_entries_to_df(xml_string_array):
+# Initialize empty list to hold dictionaries
+    data = []
+
+    # Parse each XML string in the array
+    for xml_string in xml_string_array:
+        # Parse XML string into an ElementTree
+        tree = ET.parse(StringIO(xml_string))
+        root = tree.getroot()
+
+        # Extract data for each column
+        id = root.find("{http://www.w3.org/2005/Atom}id").text
+        updated = root.find("{http://www.w3.org/2005/Atom}updated").text
+        published = root.find("{http://www.w3.org/2005/Atom}published").text
+        title = root.find("{http://www.w3.org/2005/Atom}title").text
+        summary = root.find("{http://www.w3.org/2005/Atom}summary").text
+
+        # Extract author names and join them with a semicolon
+        authors = root.findall("{http://www.w3.org/2005/Atom}author")
+        author_names = ";".join([author.find("{http://www.w3.org/2005/Atom}name").text for author in authors])
+
+        # Add data to list as a dictionary
+        data.append({"id": id, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
+
+    # Convert list of dictionaries to DataFrame
+    df = pd.DataFrame(data)
+    
+    return df
+
+def parse_arxiv_xml(xml_text):
     # Parse the XML text
     root = ET.fromstring(xml_text)
-
     # Define the namespace
     ns = {'ns': 'http://www.w3.org/2005/Atom'}
-
     # Find all 'entry' tags
     entries = root.findall('.//ns:entry', ns)
-
     # For each 'entry', get all its children
     entry_xmls = [ET.tostring(entry, encoding='unicode') for entry in entries]
-
-    return entry_xmls
+    df = parse_entries_to_df(entry_xmls)
+    return df
