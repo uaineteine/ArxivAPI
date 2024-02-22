@@ -52,14 +52,31 @@ def parse_entries_to_df(xml_string_array):
     
     return df
 
-def parse_arxiv_xml(xml_text):
+def parse_arxiv_xml(xml_text, ns = {'ns': 'http://www.w3.org/2005/Atom'}):
     # Parse the XML text
     root = ET.fromstring(xml_text)
-    # Define the namespace
-    ns = {'ns': 'http://www.w3.org/2005/Atom'}
     # Find all 'entry' tags
     entries = root.findall('.//ns:entry', ns)
     # For each 'entry', get all its children
     entry_xmls = [ET.tostring(entry, encoding='unicode') for entry in entries]
     df = parse_entries_to_df(entry_xmls)
     return df
+
+def chunk_list(input_list, chunk_size):
+    return [input_list[i:i + chunk_size] for i in range(0, len(input_list), chunk_size)]
+
+def query_ids(id_list):
+  print("[ArxivAPI::query] extracting id_list")
+  chunks = chunk_list(id_list, 50) # chunk size of 50, pgsize of 200 as there could be more versions per paper
+  
+  # Create an empty DataFrame
+  final_df = pd.DataFrame()
+  
+  for id_chunk in chunks:
+    q = build_base_query_url(id_chunk)
+    q = page_query_url(q, 0, pgSize=200)
+    xml = xml_query(q)
+    entries_df = parse_arxiv_xml(xml)
+    # Append entries_df to final_df
+    final_df = final_df.append(entries_df, ignore_index=True)
+  return final_df
