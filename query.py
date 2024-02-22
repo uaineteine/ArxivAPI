@@ -4,14 +4,15 @@
 print("[ArxivAPI::query] importing libraries")
 import requests
 
-pgSize = 100
-
-def page_query_url(base_url, startIndex):
-  return f"{base_url}&start={startIndex}&max_results={pgSize}"
+def page_query_url(base_query, startIndex, pgSize = 100):
+  return f"{base_query}&start={startIndex}&max_results={pgSize}"
 
 def build_base_query_url(idlist):
   comma_ids = ",".join(idlist) #make into a comma separated list
   return f"https://export.arxiv.org/api/query?&id_list={comma_ids}"
+
+def extend_query_with_search(base_query, search_terms):
+  return f"{base_query}&search_query=all:{search_terms}"
 
 def xml_query(url_in):
   r = requests.get(url_in)
