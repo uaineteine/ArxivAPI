@@ -33,7 +33,8 @@ def parse_entries_to_df(xml_string_array):
         root = tree.getroot()
 
         # Extract data for each column
-        id = root.find("{http://www.w3.org/2005/Atom}id").text
+        url = root.find("{http://www.w3.org/2005/Atom}id").text
+        id = id = url.split('/')[-1]
         updated = root.find("{http://www.w3.org/2005/Atom}updated").text
         published = root.find("{http://www.w3.org/2005/Atom}published").text
         title = root.find("{http://www.w3.org/2005/Atom}title").text
