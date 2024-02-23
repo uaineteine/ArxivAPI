@@ -22,7 +22,7 @@ def xml_query(url_in):
 import xml.etree.ElementTree as ET
 from io import StringIO
 
-def parse_entries_to_df(xml_string_array):
+def parse_entries_to_df(xml_string_array, ns_url):
 # Initialize empty list to hold dictionaries
     data = []
 
@@ -33,16 +33,16 @@ def parse_entries_to_df(xml_string_array):
         root = tree.getroot()
 
         # Extract data for each column
-        url = root.find("{http://www.w3.org/2005/Atom}id").text
+        url = root.find("{ns_url}id").text
         id = id = url.split('/')[-1]
-        updated = root.find("{http://www.w3.org/2005/Atom}updated").text
-        published = root.find("{http://www.w3.org/2005/Atom}published").text
-        title = root.find("{http://www.w3.org/2005/Atom}title").text
-        summary = root.find("{http://www.w3.org/2005/Atom}summary").text
+        updated = root.find("{ns_url}updated").text
+        published = root.find("{ns_url}published").text
+        title = root.find("{ns_url}title").text
+        summary = root.find("{ns_url}summary").text
 
         # Extract author names and join them with a semicolon
-        authors = root.findall("{http://www.w3.org/2005/Atom}author")
-        author_names = ";".join([author.find("{http://www.w3.org/2005/Atom}name").text for author in authors])
+        authors = root.findall("{ns_url}author")
+        author_names = ";".join([author.find("{ns_url}name").text for author in authors])
 
         # Add data to list as a dictionary
         data.append({"id": id, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
@@ -59,7 +59,7 @@ def parse_arxiv_xml(xml_text, ns = {'ns': 'http://www.w3.org/2005/Atom'}):
     entries = root.findall('.//ns:entry', ns)
     # For each 'entry', get all its children
     entry_xmls = [ET.tostring(entry, encoding='unicode') for entry in entries]
-    df = parse_entries_to_df(entry_xmls)
+    df = parse_entries_to_df(entry_xmls, ns['ns'])
     return df
 
 def chunk_list(input_list, chunk_size):
