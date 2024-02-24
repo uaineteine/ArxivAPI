@@ -7,7 +7,7 @@ import pandas as pd
 
 ns_url = "http://www.w3.org/2005/Atom"
 
-def page_query_url(base_query, startIndex, pgSize = 100):
+def page_query_url(base_query, startIndex, pgSize = 200):
   return f"{base_query}&start={startIndex}&max_results={pgSize}"
 
 def build_base_query_url(idlist):
@@ -31,7 +31,7 @@ def parse_entries_to_df(xml_string_array):
 
     # Parse each XML string in the array
     for xml_string in xml_string_array:
-        print(xml_string)
+        #print(xml_string)
         # Parse XML string into an ElementTree
         tree = ET.parse(StringIO(xml_string))
         root = tree.getroot()
@@ -76,15 +76,19 @@ def chunk_list(input_list, chunk_size):
 
 def query_ids(id_list):
   print("[ArxivAPI::query] extracting id_list")
-  chunks = chunk_list(id_list, 50) # chunk size of 50, pgsize of 200 as there could be more versions per paper
+  chunks = chunk_list(id_list, 50) # chunk size of 100, pgsize of 300 as there could be more versions per paper
   
   dfs = []
-  for id_chunk in chunks:
+  for i, id_chunk in enumerate(chunks):
     q = build_base_query_url(id_chunk)
-    q = page_query_url(q, 0, pgSize=200)
+    q = page_query_url(q, 0, pgSize=300)
     xml = xml_query(q)
     entries_df = parse_arxiv_xml(xml)
     dfs.append(entries_df)
+    if (i % 4 == 0) {
+      perc = (i / len(chunks)) * 100
+      print(f"[ArxivAPI::query] {perc} of chunks retrieved")
+    }
 
   # Append entries_df to final_df
   final_df = pd.concat(dfs, ignore_index=True)
