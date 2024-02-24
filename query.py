@@ -78,14 +78,14 @@ def query_ids(id_list):
   print("[ArxivAPI::query] extracting id_list")
   chunks = chunk_list(id_list, 50) # chunk size of 50, pgsize of 200 as there could be more versions per paper
   
-  # Create an empty DataFrame
-  final_df = pd.DataFrame()
-  
+  dfs = []
   for id_chunk in chunks:
     q = build_base_query_url(id_chunk)
     q = page_query_url(q, 0, pgSize=200)
     xml = xml_query(q)
     entries_df = parse_arxiv_xml(xml)
-    # Append entries_df to final_df
-    final_df = final_df.append(entries_df, ignore_index=True)
+    dfs.append(entries_df)
+
+  # Append entries_df to final_df
+  final_df = pd.concat(dfs, ignore_index=True)
   return final_df
