@@ -74,14 +74,14 @@ def parse_arxiv_xml(xml_text):
 def chunk_list(input_list, chunk_size):
     return [input_list[i:i + chunk_size] for i in range(0, len(input_list), chunk_size)]
 
-def query_ids(id_list):
+def query_ids(id_list, chunk_size=50):
   print("[ArxivAPI::query] extracting id_list")
-  chunks = chunk_list(id_list, 50) # chunk size of 100, pgsize of 300 as there could be more versions per paper
+  chunks = chunk_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 timmes larger as there could be more versions per paper
   
   dfs = []
   for i, id_chunk in enumerate(chunks):
     q = build_base_query_url(id_chunk)
-    q = page_query_url(q, 0, pgSize=300)
+    q = page_query_url(q, 0, pgSize=chunk_size*5)
     xml = xml_query(q)
     entries_df = parse_arxiv_xml(xml)
     dfs.append(entries_df)
