@@ -5,8 +5,8 @@ import requests
 
 class Paper:
     def __init__(self, id):
-        if not re.match(r'\d{4}\.\d{1,2}', id):
-            raise ValueError("ID is not in the correct format. Expected format is \d{4}.\d{1,2}")
+        if not re.match(r'\d{4}\.\d{4,5}', id):
+            raise ValueError("ID is not in the correct format. Expected format is \d{4}\.\d{4,5}")
         self.id = id
 
     def __str__(self):
