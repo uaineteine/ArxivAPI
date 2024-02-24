@@ -85,10 +85,9 @@ def query_ids(id_list):
     xml = xml_query(q)
     entries_df = parse_arxiv_xml(xml)
     dfs.append(entries_df)
-    if (i % 4 == 0) {
+    if (i % 4 == 0):
       perc = (i / len(chunks)) * 100
       print(f"[ArxivAPI::query] {perc} of chunks retrieved")
-    }
 
   # Append entries_df to final_df
   final_df = pd.concat(dfs, ignore_index=True)
