@@ -5,6 +5,8 @@ print("[ArxivAPI::query] importing libraries")
 import requests
 import pandas as pd
 
+ns_url = "http://www.w3.org/2005/Atom"
+
 def page_query_url(base_query, startIndex, pgSize = 100):
   return f"{base_query}&start={startIndex}&max_results={pgSize}"
 
@@ -22,44 +24,51 @@ def xml_query(url_in):
 import xml.etree.ElementTree as ET
 from io import StringIO
 
-def parse_entries_to_df(xml_string_array, ns_url):
-# Initialize empty list to hold dictionaries
+def parse_entries_to_df(xml_string_array):
+    ns = "{" + f"{ns_url}" + "}"
+    # Initialize empty list to hold dictionaries
     data = []
 
     # Parse each XML string in the array
     for xml_string in xml_string_array:
+        print(xml_string)
         # Parse XML string into an ElementTree
         tree = ET.parse(StringIO(xml_string))
         root = tree.getroot()
 
+  
         # Extract data for each column
-        url = root.find("{ns_url}id").text
-        id = id = url.split('/')[-1]
-        updated = root.find("{ns_url}updated").text
-        published = root.find("{ns_url}published").text
-        title = root.find("{ns_url}title").text
-        summary = root.find("{ns_url}summary").text
+        def rfind(name):
+          return root.find(f"{ns}{name}").text
+        url = rfind("id")
+        id_full = url.split('/')[-1]
+        id_ver  = id_full.split('v')[-1]
+        id      = id_full.split('v')[0]
+        updated = url = rfind("updated")
+        published = url = rfind("published")
+        title = url = rfind("title")
+        summary = url = rfind("summary")
 
         # Extract author names and join them with a semicolon
-        authors = root.findall("{ns_url}author")
-        author_names = ";".join([author.find("{ns_url}name").text for author in authors])
+        authors = root.findall(f"{ns}author")
+        author_names = ";".join([author.find(f"{ns}name").text for author in authors])
 
         # Add data to list as a dictionary
-        data.append({"id": id, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
+        data.append({"id": id, "ver" : id_ver, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
 
     # Convert list of dictionaries to DataFrame
     df = pd.DataFrame(data)
     
     return df
 
-def parse_arxiv_xml(xml_text, ns = {'ns': 'http://www.w3.org/2005/Atom'}):
+def parse_arxiv_xml(xml_text):
     # Parse the XML text
     root = ET.fromstring(xml_text)
     # Find all 'entry' tags
-    entries = root.findall('.//ns:entry', ns)
+    entries = root.findall('.//ns:entry', {'ns': ns_url})
     # For each 'entry', get all its children
     entry_xmls = [ET.tostring(entry, encoding='unicode') for entry in entries]
-    df = parse_entries_to_df(entry_xmls, ns['ns'])
+    df = parse_entries_to_df(entry_xmls)
     return df
 
 def chunk_list(input_list, chunk_size):
