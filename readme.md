@@ -1,4 +1,4 @@
-# STATUS
+# STATUS v1.0.3
 
 [![Execution tests](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml)
 
@@ -20,5 +20,6 @@ In addition to the ArXiv API, the script also incorporates BeautifulSoup for dir
 2. **requests**: This library is used to send HTTP requests to the ArXiv API.
 3. **BeautifulSoup**: This library is used to parse the XML response from the ArXiv API.
 4. **pandas**: This library is used to store and manipulate the scraped data.
+5. **re**: For regular expressions
 
 #### Daniel Stamer-Squair
