@@ -4,6 +4,8 @@
 print("[ArxivAPI::query] importing libraries")
 import requests
 import pandas as pd
+import xml.etree.ElementTree as ET
+from io import StringIO
 
 ns_url = "http://www.w3.org/2005/Atom"
 
@@ -21,10 +23,7 @@ def xml_query(url_in):
   r = requests.get(url_in)
   return r.text
 
-import xml.etree.ElementTree as ET
-from io import StringIO
-
-def parse_entries_to_df(xml_string_array):
+def _parse_entries_to_df(xml_string_array):
     ns = "{" + f"{ns_url}" + "}"
     # Initialize empty list to hold dictionaries
     data = []
@@ -68,15 +67,15 @@ def parse_arxiv_xml(xml_text):
     entries = root.findall('.//ns:entry', {'ns': ns_url})
     # For each 'entry', get all its children
     entry_xmls = [ET.tostring(entry, encoding='unicode') for entry in entries]
-    df = parse_entries_to_df(entry_xmls)
+    df = _parse_entries_to_df(entry_xmls)
     return df
 
-def chunk_list(input_list, chunk_size):
+def _chunkify_list(input_list, chunk_size):
     return [input_list[i:i + chunk_size] for i in range(0, len(input_list), chunk_size)]
 
 def query_ids(id_list, chunk_size=50):
   print("[ArxivAPI::query] extracting id_list")
-  chunks = chunk_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 timmes larger as there could be more versions per paper
+  chunks = _chunkify_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 timmes larger as there could be more versions per paper
   
   dfs = []
   for i, id_chunk in enumerate(chunks):
