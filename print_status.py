@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-def scrape_info(url):
-    response = requests.get(url)
+arxiv_st_url = "https://status.arxiv.org/"
+
+def scrape_status_info():
+    response = requests.get(arxiv_st_url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # Scrape information from div with class 'container container-md'
@@ -35,5 +37,6 @@ def scrape_info(url):
 
         print(f"[print_status] {component_name}, Operational Status: {operational_status}")
 
-# Call the function with your URL
-scrape_info('https://status.arxiv.org/')
+
+# Execute the status extraction
+scrape_status_info()
