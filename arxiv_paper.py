@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 
 def summaryText(title, abs):
-    return f"Title: {self.title}\nAbstract: {self.abstract}"
+    return f"Title: {title}\nAbstract: {abs}"
 
 class Paper:
     def __init__(self, id):
