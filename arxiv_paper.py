@@ -3,14 +3,19 @@ import re
 from bs4 import BeautifulSoup
 import requests
 
+def summaryText(title, abs):
+    return f"Title: {self.title}\nAbstract: {self.abstract}"
+
 class Paper:
     def __init__(self, id):
         if not re.match(r'\d{4}\.\d{4,5}', id):
             raise ValueError("ID is not in the correct format. Expected format is \d{4}\.\d{4,5}")
         self.id = id
+        self.title = ""
+        self.abstract = ""
 
     def __str__(self):
-        return f"Title: {self.title}\nAbstract: {self.abstract}"
+        return summaryText(self.title, self.abstract)
     
     def getURL(self):
         return(f"https://arxiv.org/abs/{self.id}")
