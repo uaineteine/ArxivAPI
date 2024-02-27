@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f pypack-requirements.txt ]; then pip install -r pypack-requirements.txt; fi
+        pip install -r .github/workflows/pypack_requirements.txt
 
     - name: Build and check package
       run: |
