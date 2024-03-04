@@ -33,30 +33,33 @@ def _parse_entries_to_df(xml_string_array):
 
     # Parse each XML string in the array
     for xml_string in xml_string_array:
-        #print(xml_string)
-        # Parse XML string into an ElementTree
-        tree = ET.parse(StringIO(xml_string))
-        root = tree.getroot()
+        try:
+          #print(xml_string)
+          # Parse XML string into an ElementTree
+          tree = ET.parse(StringIO(xml_string))
+          root = tree.getroot()
 
   
-        # Extract data for each column
-        def rfind(name):
-          return root.find(f"{ns}{name}").text
-        url = rfind("id")
-        id_full = url.split('/')[-1]
-        id_ver  = id_full.split('v')[-1]
-        id      = id_full.split('v')[0]
-        updated = url = rfind("updated")
-        published = url = rfind("published")
-        title = url = rfind("title")
-        summary = url = rfind("summary")
+          # Extract data for each column
+          def rfind(name):
+            return root.find(f"{ns}{name}").text
+          url = rfind("id")
+          id_full = url.split('/')[-1]
+          id_ver  = id_full.split('v')[-1]
+          id      = id_full.split('v')[0]
+          updated = url = rfind("updated")
+          published = url = rfind("published")
+          title = url = rfind("title")
+          summary = url = rfind("summary")
 
-        # Extract author names and join them with a semicolon
-        authors = root.findall(f"{ns}author")
-        author_names = ";".join([author.find(f"{ns}name").text for author in authors])
+          # Extract author names and join them with a semicolon
+          authors = root.findall(f"{ns}author")
+          author_names = ";".join([author.find(f"{ns}name").text for author in authors])
 
-        # Add data to list as a dictionary
-        data.append({"id": id, "ver" : id_ver, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
+          # Add data to list as a dictionary
+          data.append({"id": id, "ver" : id_ver, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
+        except:
+           print("[ArxivAPI::query] Parsing XML failed")
 
     # Convert list of dictionaries to DataFrame
     df = pd.DataFrame(data)
