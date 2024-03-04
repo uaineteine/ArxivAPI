@@ -21,6 +21,9 @@ def extend_query_with_search(base_query, search_terms):
 
 def xml_query(url_in):
   r = requests.get(url_in)
+  # Return None if the request failed
+  if r.status_code != 200:
+    return None
   return r.text
 
 def _parse_entries_to_df(xml_string_array):
@@ -30,30 +33,33 @@ def _parse_entries_to_df(xml_string_array):
 
     # Parse each XML string in the array
     for xml_string in xml_string_array:
-        #print(xml_string)
-        # Parse XML string into an ElementTree
-        tree = ET.parse(StringIO(xml_string))
-        root = tree.getroot()
+        try:
+          #print(xml_string)
+          # Parse XML string into an ElementTree
+          tree = ET.parse(StringIO(xml_string))
+          root = tree.getroot()
 
   
-        # Extract data for each column
-        def rfind(name):
-          return root.find(f"{ns}{name}").text
-        url = rfind("id")
-        id_full = url.split('/')[-1]
-        id_ver  = id_full.split('v')[-1]
-        id      = id_full.split('v')[0]
-        updated = url = rfind("updated")
-        published = url = rfind("published")
-        title = url = rfind("title")
-        summary = url = rfind("summary")
+          # Extract data for each column
+          def rfind(name):
+            return root.find(f"{ns}{name}").text
+          url = rfind("id")
+          id_full = url.split('/')[-1]
+          id_ver  = id_full.split('v')[-1]
+          id      = id_full.split('v')[0]
+          updated = url = rfind("updated")
+          published = url = rfind("published")
+          title = url = rfind("title")
+          summary = url = rfind("summary")
 
-        # Extract author names and join them with a semicolon
-        authors = root.findall(f"{ns}author")
-        author_names = ";".join([author.find(f"{ns}name").text for author in authors])
+          # Extract author names and join them with a semicolon
+          authors = root.findall(f"{ns}author")
+          author_names = ";".join([author.find(f"{ns}name").text for author in authors])
 
-        # Add data to list as a dictionary
-        data.append({"id": id, "ver" : id_ver, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
+          # Add data to list as a dictionary
+          data.append({"id": id, "ver" : id_ver, "updated": updated, "published": published, "title": title, "summary": summary, "authors": author_names})
+        except:
+           print("[ArxivAPI::query] Parsing XML failed")
 
     # Convert list of dictionaries to DataFrame
     df = pd.DataFrame(data)
@@ -75,15 +81,16 @@ def _chunkify_list(input_list, chunk_size):
 
 def query_ids(id_list, chunk_size=50):
   print("[ArxivAPI::query] extracting id_list")
-  chunks = _chunkify_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 timmes larger as there could be more versions per paper
+  chunks = _chunkify_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 times larger as there could be more versions per paper
   
   dfs = []
   for i, id_chunk in enumerate(chunks):
     q = build_base_query_url(id_chunk)
     q = page_query_url(q, 0, pgSize=chunk_size*5)
     xml = xml_query(q)
-    entries_df = parse_arxiv_xml(xml)
-    dfs.append(entries_df)
+    if xml is not None:
+      entries_df = parse_arxiv_xml(xml)
+      dfs.append(entries_df)
     if (i % 4 == 0):
       perc = (i / len(chunks)) * 100
       print(f"[ArxivAPI::query] {perc}% of chunks retrieved")
