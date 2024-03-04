@@ -21,6 +21,9 @@ def extend_query_with_search(base_query, search_terms):
 
 def xml_query(url_in):
   r = requests.get(url_in)
+  # Return None if the request failed
+  if r.status_code != 200:
+    return None
   return r.text
 
 def _parse_entries_to_df(xml_string_array):
@@ -75,15 +78,16 @@ def _chunkify_list(input_list, chunk_size):
 
 def query_ids(id_list, chunk_size=50):
   print("[ArxivAPI::query] extracting id_list")
-  chunks = _chunkify_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 timmes larger as there could be more versions per paper
+  chunks = _chunkify_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 times larger as there could be more versions per paper
   
   dfs = []
   for i, id_chunk in enumerate(chunks):
     q = build_base_query_url(id_chunk)
     q = page_query_url(q, 0, pgSize=chunk_size*5)
     xml = xml_query(q)
-    entries_df = parse_arxiv_xml(xml)
-    dfs.append(entries_df)
+    if xml is not None:
+      entries_df = parse_arxiv_xml(xml)
+      dfs.append(entries_df)
     if (i % 4 == 0):
       perc = (i / len(chunks)) * 100
       print(f"[ArxivAPI::query] {perc}% of chunks retrieved")
