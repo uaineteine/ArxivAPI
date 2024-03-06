@@ -22,10 +22,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r .github/workflows/pypack_requirements.txt
     - name: Move test files
-      run: |
-        cp automation//tests/test_*.py arxivapi/
-        cd arxivapi
+      run: cp automation/tests/test_*.py arxivapi/
     - name: Test status checking script
       run: python print_status.py
+      working-directory: arxivapi
     - name: Test extraction using beautiful soup and arxivAPI
       run: python test_extract.py
+      working-directory: arxivapi
