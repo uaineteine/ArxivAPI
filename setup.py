@@ -10,7 +10,7 @@ setup(
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
     description='A simple wrapper for extracting Arxiv search results to a workable dataframe',
-    packages=find_packages(),
+    packages=find_packages(where='arxivquery'),
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
