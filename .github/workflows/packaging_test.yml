@@ -22,13 +22,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r .github/workflows/pypack_requirements.txt
 
+    - name: Install Uaine Teine Workflow Scripts
+      run: wget https://github.com/uaineteine/WorkflowScripts/raw/main/PrintFile.py -O PrintFile.py
+
     - name: Build Package
       run: python setup.py sdist bdist_wheel
     
     - name: Check Package Output
       run: twine check dist/*
 
-    - name: Print Sources
-      run: |
-        wget https://github.com/uaineteine/WorkflowScripts/raw/main/PrintFile.py -O PrintFile.py
-        python PrintFile.py arxivquery.egg-info/SOURCES.txt
+    - name: Print Package Source List
+      run: python PrintFile.py arxivquery.egg-info/SOURCES.txt
