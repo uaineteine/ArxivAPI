@@ -17,7 +17,7 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Install dependencies
+    - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r .github/workflows/pypack_requirements.txt
@@ -25,5 +25,10 @@ jobs:
     - name: Build Package
       run: python setup.py sdist bdist_wheel
     
-    - name: Check Package
+    - name: Check Package Output
       run: twine check dist/*
+
+    - name: Print Sources
+      run: |
+        wget https://github.com/uaineteine/WorkflowScripts/raw/main/PrintFile.py -O PrintFile.py
+        python PrintFile.py arxivquery.egg-info/SOURCES.txt
