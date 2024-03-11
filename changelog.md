@@ -1,3 +1,7 @@
+## 1.0.4.1
+
+* Privatised summary text field
+
 ## 1.0.4
 
 * Request error 200 is skipped over now
