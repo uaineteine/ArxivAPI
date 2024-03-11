@@ -11,7 +11,7 @@ setup(
     author_email='uaine.teine@hotmail.com',
     description='A simple wrapper for extracting Arxiv search results to a workable dataframe',
     url='https://github.com/uaineteine/ArxivAPI',  
-    packages=find_packages(where='arxivquery'),
+    packages=["arxivapi"],
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
