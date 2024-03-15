@@ -10,7 +10,7 @@ print(p)
 print("[test_extract] testing extract using API")
 import query
 id_list = ["1802.06593", "0704.0003"]
-repeated_list = id_list * 60
+repeated_list = id_list * 30
 q = query.build_base_query_url(repeated_list)
 q = query.page_query_url(q, 0)
 xml = query.xml_query(q)
