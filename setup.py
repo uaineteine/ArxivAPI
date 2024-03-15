@@ -6,7 +6,7 @@ def read_requirements():
 
 setup(
     name='arxivquery',
-    version='1.0.4',
+    version='1.0.5',
     author='Daniel Stamer-Squair',
     author_email='uaine.teine@hotmail.com',
     description='A simple wrapper for extracting Arxiv search results to a workable dataframe',

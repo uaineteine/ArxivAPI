@@ -1,4 +1,4 @@
-# STATUS v1.0.4.1
+# STATUS v1.0.5
 
 [![Execution tests](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml/badge.svg)](https://github.com/uaineteine/ArxivAPI/actions/workflows/execution-tests.yml)
 

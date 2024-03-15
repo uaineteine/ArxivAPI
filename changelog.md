@@ -1,3 +1,7 @@
+## 1.0.5
+
+* Multi-threading the chunk requests
+
 ## 1.0.4.1
 
 * Privatised summary text field
