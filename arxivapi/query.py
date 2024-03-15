@@ -6,6 +6,7 @@ import requests
 import pandas as pd
 import xml.etree.ElementTree as ET
 from io import StringIO
+import concurrent.futures
 
 ns_url = "http://www.w3.org/2005/Atom"
 
@@ -79,21 +80,29 @@ def parse_arxiv_xml(xml_text):
 def _chunkify_list(input_list, chunk_size):
     return [input_list[i:i + chunk_size] for i in range(0, len(input_list), chunk_size)]
 
-def query_ids(id_list, chunk_size=50):
+def query_ids(id_list, chunk_size=50, num_workers = 1):
   print("[ArxivAPI::query] extracting id_list")
   chunks = _chunkify_list(id_list, chunk_size) # chunk size of 100, pgsize of 5 times larger as there could be more versions per paper
   
   dfs = []
-  for i, id_chunk in enumerate(chunks):
+
+  def process_chunk(id_chunk):
     q = build_base_query_url(id_chunk)
     q = page_query_url(q, 0, pgSize=chunk_size*5)
     xml = xml_query(q)
     if xml is not None:
       entries_df = parse_arxiv_xml(xml)
-      dfs.append(entries_df)
-    if (i % 4 == 0):
-      perc = (i / len(chunks)) * 100
-      print(f"[ArxivAPI::query] {perc}% of chunks retrieved")
+      return entries_df
+
+  with concurrent.futures.ThreadPoolExecutor(max_workers=num_workers) as executor:
+    future_to_df = {executor.submit(process_chunk, id_chunk): id_chunk for id_chunk in chunks}
+    for i, future in enumerate(concurrent.futures.as_completed(future_to_df)):
+      df = future.result()
+      if df is not None:
+        dfs.append(df)
+      if (i % 4 == 0):
+        perc = (i / len(chunks)) * 100
+        print(f"[ArxivAPI::query] {perc}% of chunks retrieved")
 
   # Append entries_df to final_df
   final_df = pd.concat(dfs, ignore_index=True)
