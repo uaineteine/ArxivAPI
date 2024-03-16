@@ -19,4 +19,5 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=read_requirements(),
+    package_data={'': ['LICENSE']}  # Specify the license file here
 )
