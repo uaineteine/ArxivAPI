@@ -8,3 +8,4 @@ tqdm
 regex
 wheel
 twine
+uainepydat
